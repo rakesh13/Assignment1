@@ -60,28 +60,6 @@ public class Query {
 		this.orderClause = orderClause;
 		
 	}
-
-	public String toString()
-	{
-		String res="select ";
-		for(String field:fields)
-		{
-			res+=field+",";
-		}
-		res=res+" from "+csvfile;
-		if(whereConditions.isEmpty())
-		{
-			return res;
-		}
-		else
-		{
-			for(String wherecond:whereConditions)
-			{
-				res=res+" where "+wherecond;
-			}
-		}
-		return res;
-	}
 	
 	
 }

@@ -3,7 +3,17 @@ package com.niit;
 public class MainClass {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		boolean result;
+		TestClass t=new TestClass();
+		result=t.onlySelectClauseTest();
+		if(result)
+		{
+			System.out.println("Test Succeded!!!");
+		}
+		else
+		{
+			System.out.println("Invalid Query/Problem in Processing Query...");
+		}
 
 	}
 
