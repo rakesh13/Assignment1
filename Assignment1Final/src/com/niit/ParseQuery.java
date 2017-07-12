@@ -60,20 +60,17 @@ public class ParseQuery {
 		if (query.contains("where")) {
 			splitQuery = query.split("where");
 			this.whereClause(splitQuery[1]);
-			query=splitQuery[0];
-
-		}
-		
-
-		else if (query.contains("group by")) {
+			
+		if (query.contains("group by")) {
 			splitQuery =query.split("group by");
 			this.groupbyClause(splitQuery[1]);
-			query=splitQuery[0];
-		}
-		else if (query.contains("order by")) {
+			
+		 if (query.contains("order by")) {
 			splitQuery = query.split("order by");
 			this.orderby(splitQuery[1]);
-			//query=splitQuery[0];
+			
+		}
+		}
 		}
 	}
 	public Query querySelectToFrom(String parameter) {
@@ -125,11 +122,13 @@ public class ParseQuery {
 
 		if (m.find()) {
 			whereString = m.group(1);
-			System.out.println(whereString);
 
 			whereArray = whereString.split(" ");
 			for (String condition : whereArray) {
 				// System.out.println(c);
+				if((condition.equals("group"))||(condition.equals("order"))){
+					break;
+				}//||(!(condition.equals("order")))){
 				if (!(condition.equals("and") || condition.equals("or"))) {
 					String pattern1 = "(([A-Z])\\w+)$";
 					Pattern pattern2 = Pattern.compile(pattern1);
@@ -152,6 +151,7 @@ public class ParseQuery {
 					
 				}
 			}
+			
 			queryParameter.setWhereConditions(conditions);
 
 		}
@@ -163,14 +163,22 @@ public class ParseQuery {
 		Pattern r = Pattern.compile(pattern);
 		Matcher m = r.matcher(groupByParam);
 
-		String groupByString = null;
+		String[] groupByString = null;
 
 		if (m.find()) {
-			groupByString = m.group(1);
-
+			groupByString = m.group().split(" ");
+			for(String group:groupByString)
+			{
+				if(group.equals("order"))
+				{
+					break;
+				}
+				queryParameter.setGroupClause(group);
+			}
+			
 		}
 
-		System.out.println(groupByString);
+		//System.out.println(groupByString);
 		
 
 	}
@@ -188,7 +196,7 @@ public class ParseQuery {
 			havingString = m.group(1);
 
 		}
-System.out.println(havingString);
+		//System.out.println(havingString);
 		//queryParameter.setHaving(havingString);
 
 	}
@@ -202,11 +210,11 @@ System.out.println(havingString);
 		String orderbyString = null;
 
 		if (m.find()) {
-			orderbyString = m.group(1);
+			orderbyString = m.group();
 
 		}
-		System.out.println(orderbyString);
-		//queryParameter.setOrderby(orderbyString);
+		//System.out.println(orderbyString);
+		queryParameter.setOrderClause(orderbyString);
 
 	}
 }

@@ -40,6 +40,7 @@ public class Query {
 
 	public void setWhereConditions(List<String> whereConditions) {
 		this.whereConditions = whereConditions;
+		
 	}
 
 	public String getGroupClause() {
@@ -48,6 +49,7 @@ public class Query {
 
 	public void setGroupClause(String groupClause) {
 		this.groupClause = groupClause;
+		
 	}
 
 	public String getOrderClause() {
@@ -56,9 +58,30 @@ public class Query {
 
 	public void setOrderClause(String orderClause) {
 		this.orderClause = orderClause;
+		
 	}
 
-	
+	public String toString()
+	{
+		String res="select ";
+		for(String field:fields)
+		{
+			res+=field+",";
+		}
+		res=res+" from "+csvfile;
+		if(whereConditions.isEmpty())
+		{
+			return res;
+		}
+		else
+		{
+			for(String wherecond:whereConditions)
+			{
+				res=res+" where "+wherecond;
+			}
+		}
+		return res;
+	}
 	
 	
 }

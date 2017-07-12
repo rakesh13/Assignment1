@@ -18,15 +18,15 @@ public class TestClass {
 		List<String> expectedValue=new ArrayList<>();
 		actualValue.add("username");
 		actualValue.add("password");
-		
-		ParseQuery parseQuery=new ParseQuery("select username,password from demo.csv where x>100");
-		//Query queryParameter=
+		String query="select username,password from demo.csv";
+		ParseQuery parseQuery=new ParseQuery(query);
+		Query queryParameter=
 		parseQuery.createQuery();//("select * from login.csv");
 		/*for(String x:queryParameter.getFields())
 		{
 			expectedValue.add(x);
 		}*/
-		Assert.assertEquals("Test Succeeded", " * ", expectedValue);
+		Assert.assertEquals("Test Succeeded", query, );
 	}
 	@Test
 	public void selectToWhereTest()
